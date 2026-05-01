@@ -20,18 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jrduotz9vt379uqogwr&7*pk*5z&p+u(xbq*=po5zo4spc-!kd'
+SECRET_KEY = 'django-insecure-9&r27sxoaqb@m0m+_qgl&x-5(_e^fzldka-sreopa^u0)9a3xn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-# Permitir todos los hosts
-ALLOWED_HOSTS = ['*']
+import os
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.environ.get('CODESPACE_NAME'):
+    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
 
 # Application definition
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'octofit_tracker',
 ]
-
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -82,8 +81,6 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
-# Configuración para Djongo y MongoDB
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -95,14 +92,6 @@ DATABASES = {
         }
     }
 }
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-# Configuración de CORS
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = ['*']
-CORS_ALLOW_METHODS = ['*']
 
 
 # Password validation
@@ -136,10 +125,16 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
+
+# Configuración de CORS
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_METHODS = ['*']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
